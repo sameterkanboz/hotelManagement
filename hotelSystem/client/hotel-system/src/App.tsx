@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { RefAttributes, useEffect, useState } from "react";
 
 import axios from "axios";
-import { Route, Routes } from "react-router-dom";
+import { Link, LinkProps, Route, Routes, useLocation } from "react-router-dom";
 import {
   useCreatePerson,
   useDeletePerson,
@@ -84,6 +84,12 @@ function Customer() {
                   <button onClick={() => del.mutate({ id: value.id })}>
                     sil
                   </button>
+                  <Link
+                    to={`/view-contact-details/${value.id}`}
+                    state={{ name: value.name }}
+                  >
+                    <button>view</button>
+                  </Link>
                 </div>
               );
             }
@@ -95,7 +101,20 @@ function Customer() {
 }
 
 function Home() {
-  return <div>home</div>;
+  return <div>home </div>;
+}
+
+function ViewUserDetails() {
+  const { state } = useLocation();
+  return (
+    <form>
+      <div>
+        <div>
+          <strong>Name:</strong> {state.name}
+        </div>
+      </div>
+    </form>
+  );
 }
 
 function App() {
@@ -104,11 +123,12 @@ function App() {
     <div className="App">
       <QueryClientProvider client={queryClient}>
         <Routes>
-          <Route>
-            <Route index element={<Home />} />
-            <Route path="customer" element={<Customer />} />
-            <Route path="customer/1" element={<Customer />} />
-          </Route>
+          <Route index element={<Home />} />
+          <Route path="customer" element={<Customer />} />
+          <Route
+            path="view-contact-details/:id"
+            element={<ViewUserDetails />}
+          />
         </Routes>
       </QueryClientProvider>
     </div>
