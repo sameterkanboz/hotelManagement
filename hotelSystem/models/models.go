@@ -2,10 +2,19 @@ package models
 
 import "gorm.io/gorm"
 
-type Fact struct {
-	gorm.Model
-	Question string `json:"question"`
-	Answer   string `json:"answer" `
+type User struct {
+	Id       uint   `json:"id"`
+	Name     string `json:"name"`
+	Email    string `json:"email" gorm:"unique"`
+	Password []byte `json:"-"`
+}
+
+type Room struct {
+	ID          int    `json:"id" `
+	RoomType    string `json:"room_type" `
+	Capacity    int    `json:"capacity" `
+	Image       string `json:"image" `
+	Description string `json:"description" `
 }
 
 type Person struct {
