@@ -19,7 +19,7 @@ const ImageBackground = () => {
         justifyContent: "center",
       }}
     >
-      <Button disableRipple variant="outlined">
+      <Button href="/reservation" disableRipple variant="outlined">
         {" "}
         make a reservation
       </Button>

@@ -127,21 +127,15 @@ export const useDeletePerson = ({
   url,
   method,
   headers = "",
-  body = "",
 }: {
   url: string;
   method: Methods;
   headers: string;
-  body: string;
 }) => {
   const queryClient = useQueryClient();
   const mutation = useMutation({
-    mutationFn: ({ id }: { id: number }) => {
-      return axios[method](
-        baseUrl + url + "/" + id,
-        JSON.parse(headers),
-        JSON.parse(body)
-      );
+    mutationFn: ({ id }: { id: string }) => {
+      return axios[method](baseUrl + url + "/" + id, JSON.parse(headers));
     },
     onSuccess: (data, variable) => {
       queryClient.invalidateQueries([]);

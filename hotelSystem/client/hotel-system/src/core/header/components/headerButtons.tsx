@@ -22,7 +22,11 @@ const HeaderButtons = () => {
   console.log(location.pathname.split("/")[1]);
   return (
     <div style={{ flex: 2, flexDirection: "row", display: "flex" }}>
-      {["customer", "employees", "rooms"].map((value, index) => {
+      {[
+        "customer",
+        //  "employees",
+        "rooms",
+      ].map((value, index) => {
         return (
           <MyHeaderButton
             selected={location.pathname.split("/")[1] === value}

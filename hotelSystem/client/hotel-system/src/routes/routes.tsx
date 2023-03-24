@@ -5,6 +5,7 @@ import { Route, Routes } from "react-router-dom";
 import UserDetails from "view/customers/components/userDetails";
 import Customers from "view/customers/customers";
 import Home from "view/home/home";
+import Reservation from "view/reservation/reservation";
 import Rooms from "view/rooms/rooms";
 
 const MyRoutes = () => {
@@ -14,6 +15,7 @@ const MyRoutes = () => {
       <Routes>
         <Route index element={<Home />} />
         <Route path="customer" element={<Customers />} />
+        <Route path="reservation" element={<Reservation />} />
         <Route path="rooms" element={<Rooms />} />
         <Route path="view-contact-details/:id" element={<UserDetails />} />
       </Routes>

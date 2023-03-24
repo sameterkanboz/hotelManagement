@@ -15,42 +15,9 @@ const Home = () => {
     headers: JSON.stringify({ accept: "*/*" }),
   });
   const Name = useAuthContext();
-  // const { userResponse, userLoading, userError } = useGetUser({
-  //   method: "get",
-  //   url: "/user",
-  //   headers: JSON.stringify({ "Content-Type": "application/json" }),
-  // });
-
-  // const log = useLogout();
-
-  // useEffect(() => {
-  //   (async () => {
-  //     const response = await axios
-  //       .get("http://localhost:4000/user", {
-  //         headers: { "Content-Type": "application/json" },
-  //         withCredentials: true,
-  //       })
-  //       .then((res) => {
-  //         console.log(res.data);
-  //         setName(res.data.name);
-  //       })
-  //       .catch((err) => {
-  //         console.log(err.response.data.message);
-  //       })
-  //       .finally(() => {
-  //         console.log("done");
-  //       });
-  //   })();
-  // });
-  // console.log(name);
 
   const [data, setData] = useState([]);
-  // useEffect(() => {
-  //   if (userResponse !== null) {
-  //     setName(userResponse);
-  //   }
-  // }, [userResponse]);
-  // console.log(userResponse);
+
   useEffect(() => {
     if (response !== null) {
       setData(response);
@@ -79,14 +46,6 @@ const Home = () => {
               "Welcome" + " " + Name.name + "!")}
         </Typography>
 
-        {/* 
-        <Button
-          onClick={() =>
-            functionFactory.logOut().then(() => Name.handleUserState("visitor"))
-          }
-        >
-          logout
-        </Button> */}
         {loading ? (
           <p>loading...</p>
         ) : (

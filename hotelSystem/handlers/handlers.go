@@ -21,9 +21,9 @@ func GetRooms(c *fiber.Ctx) error {
 }
 
 func GetUsers(c *fiber.Ctx) error {
-	users := []models.Person{}
+	users := []models.Customer{}
 	database.DB.Db.Find(&users)
-	responseUsers := []models.Person{}
+	responseUsers := []models.Customer{}
 	for _, user := range users {
 
 		responseUsers = append(responseUsers, user)
@@ -33,7 +33,7 @@ func GetUsers(c *fiber.Ctx) error {
 }
 
 func CreateCustomer(c *fiber.Ctx) error {
-	customer := new(models.Person)
+	customer := new(models.Customer)
 	if err := c.BodyParser(customer); err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 			"message": err.Error(),
@@ -45,7 +45,7 @@ func CreateCustomer(c *fiber.Ctx) error {
 	return c.Status(200).JSON(customer)
 }
 
-func findUser(id int, user *models.Person) error {
+func findUser(id int, user *models.Customer) error {
 	database.DB.Db.Find(&user, "id = ?", id)
 	if user.ID == 0 {
 		return errors.New("user does not exist")
@@ -56,13 +56,13 @@ func findUser(id int, user *models.Person) error {
 func GetUser(c *fiber.Ctx) error {
 	id, err := c.ParamsInt("id")
 
-	var customer models.Person
+	var customer models.Customer
 
 	if err != nil {
 		return c.Status(400).JSON("Please ensure that :id is an integer")
 	}
 
-	if err := findUser(id, &customer); err != nil {
+	if err := findUser(id, &models.Customer{}); err != nil {
 		return c.Status(400).JSON(err.Error())
 	}
 
@@ -72,7 +72,7 @@ func GetUser(c *fiber.Ctx) error {
 func DeleteUser(c *fiber.Ctx) error {
 	id, err := c.ParamsInt("id")
 
-	var customer models.Person
+	var customer models.Customer
 
 	if err != nil {
 		return c.Status(400).JSON("Please ensure that :id is an integer")

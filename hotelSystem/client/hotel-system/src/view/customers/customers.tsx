@@ -1,3 +1,11 @@
+import {
+  Button,
+  Checkbox,
+  FormControlLabel,
+  FormGroup,
+  TextField,
+  Typography,
+} from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import {
@@ -5,95 +13,97 @@ import {
   useDeletePerson,
   useGetData,
 } from "service/customHooks";
+import CustomerTable from "./components/customerTable";
 
 const Customers = () => {
-  const { response, loading, error } = useGetData({
-    method: "get",
-    url: "/customer",
-    headers: JSON.stringify({ accept: "*/*" }),
-  });
-
   const create = useCreatePerson({
     method: "post",
     url: "/customer",
   });
+
   const del = useDeletePerson({
     method: "delete",
     url: "/customer",
     headers: JSON.stringify({ accept: "*/*" }),
-    body: JSON.stringify({
-      id: 1,
-      name: "erkan",
-      gender: "erkek",
-      age: "25",
-    }),
   });
-  const [data, setData] = useState([]);
 
   const [name, setName] = useState("");
   const [gender, setGender] = useState("");
   const [age, setAge] = useState("");
-  useEffect(() => {
-    if (response !== null) {
-      setData(response);
-    }
-  }, [response]);
-  console.log(error);
+  const [roomNumber, setRoomNumber] = useState("");
+  const [privileges, setPrivileges] = useState(false);
+  console.log(privileges);
 
   return (
     <div className="App">
-      <h1>customers</h1>
-
-      <input onChange={(e) => setName(e.target.value)}></input>
-      <input onChange={(e) => setGender(e.target.value)}></input>
-      <input onChange={(e) => setAge(e.target.value)}></input>
-      <button
-        onClick={() =>
-          create.mutate({
-            body: JSON.stringify({
-              name: name,
-              gender: gender,
-              age: age,
-            }),
-          })
-        }
+      <div
+        style={{
+          display: "flex",
+          gap: 20,
+          alignItems: "center",
+          flexDirection: "column",
+        }}
       >
-        bas
-      </button>
-
-      {loading ? (
-        <p>loading...</p>
-      ) : (
-        <div>
-          {data.map(
-            (
-              value: { name: string; id: number; gender: string; age: string },
-              index
-            ) => {
-              return (
-                <div key={index}>
-                  {value.id +
-                    " " +
-                    value.name +
-                    " " +
-                    value.gender +
-                    " " +
-                    value.age}{" "}
-                  <button onClick={() => del.mutate({ id: value.id })}>
-                    sil
-                  </button>
-                  <Link
-                    to={`/view-contact-details/${value.id}`}
-                    state={{ name: value.name }}
-                  >
-                    <button>view</button>
-                  </Link>
-                </div>
-              );
-            }
-          )}
+        <Typography variant="h2">Add Customer</Typography>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            gap: 10,
+            flexWrap: "wrap",
+            width: "40%",
+          }}
+        >
+          <TextField
+            onChange={(e) => setName(e.target.value)}
+            placeholder="name"
+            style={{ width: 250 }}
+          />
+          <TextField
+            onChange={(e) => setGender(e.target.value)}
+            placeholder="gender"
+            style={{ width: 250 }}
+          />
+          <TextField
+            onChange={(e) => setAge(e.target.value)}
+            placeholder="age"
+            style={{ width: 250 }}
+          />
+          <TextField
+            onChange={(e) => setRoomNumber(e.target.value)}
+            placeholder="room number"
+            style={{ width: 250 }}
+          />
         </div>
-      )}
+
+        <FormControlLabel
+          checked={privileges}
+          onChange={() => {
+            setPrivileges(!privileges);
+          }}
+          control={<Checkbox defaultChecked />}
+          label="privileges"
+        />
+
+        <Button
+          onClick={() =>
+            create.mutate({
+              body: JSON.stringify({
+                name: name,
+                gender: gender,
+                age: age,
+                roomNumber: roomNumber,
+                privileges: privileges,
+              }),
+            })
+          }
+          variant="contained"
+        >
+          create
+        </Button>
+
+        <CustomerTable />
+      </div>
     </div>
   );
 };
