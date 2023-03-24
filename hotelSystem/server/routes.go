@@ -18,4 +18,10 @@ func setupRoutes(app *fiber.App) {
 	app.Post("/login", handlers.Login)
 	app.Get("/user", handlers.User)
 	app.Post("/logout", handlers.Logout)
+
+	//reservation
+	app.Post("/reservation", handlers.CreateReservation)
+	app.Get("/reservation", handlers.GetReservation)
+	app.Get("/reservation/:id", handlers.GetReservationId)
+	app.Delete("/reservation/:id", handlers.DeleteReservation)
 }

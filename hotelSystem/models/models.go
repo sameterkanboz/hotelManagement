@@ -2,6 +2,8 @@ package models
 
 import "gorm.io/gorm"
 
+type dene []string
+
 type User struct {
 	Id       uint   `json:"id"`
 	Name     string `json:"name"`
@@ -15,6 +17,19 @@ type Room struct {
 	Capacity    int    `json:"capacity" `
 	Image       string `json:"image" `
 	Description string `json:"description" `
+}
+
+type Reservation struct {
+	gorm.Model
+	RoomOwnerId    int    `json:"roomOwnerID" `
+	ID             int    `json:"id" `
+	RoomName       string `json:"roomName" `
+	RoomType       string `json:"roomType" `
+	CheckInDate    string `json:"checkin" `
+	CheckOutDate   string `json:"checkout" `
+	NumberOfPeople int    `json:"numberOfPeople" `
+	PeopleInfo     string `json:"peopleInfo" `
+	UserID         int    `json:"userID" `
 }
 
 type Person struct {
