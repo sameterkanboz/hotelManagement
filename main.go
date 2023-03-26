@@ -3,11 +3,11 @@ package main
 import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
-	"github.com/sameterkanboz/hotelManagement/database"
+	// "github.com/sameterkanboz/hotelManagement/database"
 )
 
 func main() {
-	database.ConnectDb()
+	// database.ConnectDb()
 	app := fiber.New()
 
 	app.Use(cors.New(cors.Config{
@@ -18,5 +18,5 @@ func main() {
 
 	setupRoutes(app)
 
-	app.Listen("134.209.230.22:4000")
+	app.Listen(":4000")
 }
