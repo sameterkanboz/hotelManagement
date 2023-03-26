@@ -18,5 +18,5 @@ func main() {
 
 	setupRoutes(app)
 
-	app.Listen(":4000")
+	app.Listen("134.209.230.22:4000")
 }
