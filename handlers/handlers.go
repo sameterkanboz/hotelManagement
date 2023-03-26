@@ -16,6 +16,10 @@ var rooms = []models.Room{
 	{ID: 5, RoomType: "Honeymoon", Capacity: 2, Image: "https://www.lehimalaya.com/images/subpackage/Jcuy0-untitled-2.jpg", Description: "The Honeymoon Rooms with us are always special as they give you the feel of sleeping in a cloud and waking up to the sky. These rooms are designed keeping in the mind the newly married couple. With a classic circular bed and many other facilities, this suite brings both the sweetness of honey and the pleasantness of the moon. The room’s ambiance is made romantic along with all the modern amenities to make the stay of the couple a comfortable one."},
 }
 
+func SayHi(c *fiber.Ctx) error {
+	return c.SendString("Hello ")
+}
+
 func GetRooms(c *fiber.Ctx) error {
 	return c.Status(200).JSON(rooms)
 }
